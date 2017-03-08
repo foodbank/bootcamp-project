@@ -54,15 +54,17 @@
             "php artisan clear-compiled",
             "php artisan ide-helper:generate",
             "php artisan ide-helper:meta",
-            "@build-db"
+            "mkdir -p resource/images"
         ],
         "develop": [
             "composer update",
-            "yarn"
+            "yarn",
+            "npm run dev"
         ],
-        "deploy": [
+        "production": [
             "composer update --no-dev",
-            "npm install --production"
+            "yarn --production",
+            "npm run production"
         ],
         "build-container": [
             "docker ps -q -a | xargs docker rm -f",
