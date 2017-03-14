@@ -8,6 +8,7 @@
         "php": ">=5.6.4",
         "barryvdh/laravel-debugbar": "^2.3",
         "doctrine/dbal": "^2.5",
+        "hirak/prestissimo": "^0.3",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "predis/predis": "^1.1"
@@ -47,24 +48,24 @@
             "php artisan optimize"
         ],
         "build": [
-            "@develop",
             "@post-root-package-install",
             "@post-create-project-cmd",
-            "@build-container",
-            "php artisan clear-compiled",
-            "php artisan ide-helper:generate",
-            "php artisan ide-helper:meta",
-            "mkdir -p resources/assets/images"
+            "php artisan clear-compiled"
         ],
         "develop": [
             "composer update",
-            "yarn",
-            "npm run dev"
+            "yarn install",
+            "php artisan ide-helper:generate",
+            "php artisan ide-helper:meta",
+            "npm run dev",
+            "@build",
+            "@build-container"
         ],
         "production": [
             "composer update --no-dev",
-            "yarn --production",
-            "npm run production"
+            "yarn install",
+            "npm run production",
+            "@build"
         ],
         "build-container": [
             "docker ps -q -a | xargs docker rm -f",
